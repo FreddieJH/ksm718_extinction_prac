@@ -7,7 +7,7 @@ date: "2023-02-28"
 toc: true
 title-block-banner: true
 author-title: Author
-published-title: Date
+published-title: Practical date
 ---
 
 ## Background
@@ -18,7 +18,7 @@ The vulnerability of a species to extinction is dependant upon many life history
 2.  Thermal tolerance
 3.  Speciality/generality of feeding or habitat preference
 4.  Growth rate
-5.  Productivity rate
+5.  Productivity
 6.  Migration ability
 
 Focusing on one of these, thermal tolerance, we hypothesise that cooler species are being driven out from regions due to warming waters. Looking at @fig-edgar, we see that cooler species are generally declining in the southern parts of Australia, whilst warmer species are remaining consistent or increasing (in Tasmania at least).
@@ -51,7 +51,7 @@ The rate of decline in abundance over time, can give us an idea about how quickl
 
 ## Today's practical
 
-Edgar et al (Accepted, 2023) looked at the species trends for 1057 species. In this practical we will look at 20 species. The steps we will follow we be as follows
+Edgar et al (Accepted, 2023) looked at the species trends for 1057 species. In this practical we will look at 20 of those species. The steps we will follow we be as follows:
 
 1.  Get general life history information about each species, e.g. mean or maximal body size of the species, thermal preference.
 2.  Getting fish abundance data from from the Reef Life Survey (RLS)
@@ -65,7 +65,7 @@ Try and get as much information about the species as possible. Sources include:
 2.  Wikipedia
 3.  IUCN
 4.  Reef Life survey
-5.  ChatGPT - ask for a reference/source and **check that source**
+5.  ChatGPT - ask for a reference/source and **check that source!**
 
 We will split into pairs, each pair will try to get as much life-history information as possible. Input your data into the Google Doc [here](https://docs.google.com/spreadsheets/d/1xS3Vvh5dRKqeGZlLSjoFXsAyfxCWRKPGD8YZylSfWw0/edit?usp=sharing).
 
