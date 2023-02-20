@@ -1,0 +1,16 @@
+{
+  "hash": "bb4824d7392261f72ada2503cb1acbc7",
+  "result": {
+    "markdown": "---\ntitle: \"Heading to extinction?\"\nsubtitle: \"KSM718 Practical #2\"\nauthor: Dr. Freddie Heather\ndate: \"2023-02-28\"\ntoc: true\n---\n\n\n## Background\n\nQuarto enables you to weave together content and executable code into a finished document. To learn more about Quarto see <https://quarto.org>.\n\n\n::: {.cell}\n\n```{.r .cell-code}\n1 + 1\n```\n\n::: {.cell-output .cell-output-stdout}\n```\n[1] 2\n```\n:::\n:::\n",
+    "supporting": [
+      "extinction_modelling_files"
+    ],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}

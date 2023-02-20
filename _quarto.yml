@@ -1,0 +1,7 @@
+project:
+  title: "extinction_modelling"
+  type: website
+  output-dir: docs
+
+editor: visual
+

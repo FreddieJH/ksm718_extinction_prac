@@ -1,0 +1,88 @@
+---
+title: "Heading to extinction?"
+subtitle: "A simple linear modelling approach to assessing species' population trends"
+author: Dr. Freddie Heather 
+description: "KSM718 Practical #2"
+date: "2023-02-28"
+toc: true
+title-block-banner: true
+author-title: Author
+published-title: Date
+---
+
+## Background
+
+The vulnerability of a species to extinction is dependant upon many life history parameters, for example:
+
+1.  Body size
+2.  Thermal tolerance
+3.  Speciality/generality of feeding or habitat preference
+4.  Growth rate
+5.  Productivity rate
+6.  Migration ability
+
+Focusing on one of these, thermal tolerance, we hypothesise that cooler species are being driven out from regions due to warming waters. Looking at @fig-edgar, we see that cooler species are generally declining in the southern parts of Australia, whilst warmer species are remaining consistent or increasing (in Tasmania at least).
+
+![Mean population trends for cool-temperate, warm-temperate and tropical species in six geographic regions around Australia over the last 10 years. Image from Edgar et al (Accepted for publication, 2023).](images/image-1610494163.png){#fig-edgar}
+
+This leads to the question:
+
+**What happens to the cool-affinity species in Tasmania when the waters warm?**
+
+## The approach
+
+**1. It starts with an observation or idea:**
+
+"*Has anyone noticed how we've started seeing a heap more tropical fish in our dives around Bicheno?*".
+
+**2. Leading into a formal hypothesis or question:**
+
+What are the population trends of temperate and tropical fish species across Tassie in the past decade?
+
+**3. Thinking about how we might analyse this:**
+
+For a single species, we could look at the abundance of each species over time - this could give us an idea about whether that species is going up, down, or remaining constant.
+
+![Back-of-envelope analysis of a single species population trend over time. Where a species may be increasing (orange), remaining constant (green), or declining (black).](images/Notes_230215_134427%20(5).jpg){#fig-scribble1}
+
+The rate of decline in abundance over time, can give us an idea about how quickly the species is heading to 'extinction' (@fig-slopes).
+
+![Some species may decline more rapidly (species B) than others (species A). Is species B at greater risk of extinction?](images/image-2062724559.png){#fig-slopes}
+
+## Today's practical
+
+Edgar et al (Accepted, 2023) looked at the species trends for 1057 species. In this practical we will look at 20 species. The steps we will follow we be as follows
+
+1.  Get general life history information about each species, e.g. mean or maximal body size of the species, thermal preference.
+2.  Getting fish abundance data from from the Reef Life Survey (RLS)
+3.  Use R to analyse and quantify population trends.
+
+### Step 1. Getting life-history data
+
+Try and get as much information about the species as possible. Sources include:
+
+1.  Fishbase
+2.  Wikipedia
+3.  IUCN
+4.  Reef Life survey
+5.  ChatGPT - ask for a reference/source and **check that source**
+
+We will split into pairs, each pair will try to get as much life-history information as possible. Input your data into the Google Doc [here](https://docs.google.com/spreadsheets/d/1xS3Vvh5dRKqeGZlLSjoFXsAyfxCWRKPGD8YZylSfWw0/edit?usp=sharing).
+
+### Step 2. Getting abundance data
+
+-   Check out https://www.reeflifesurvey.com, which will take you over to the AODN portal (@fig-aodn-screenshot):
+
+![Screen shot of the data extract we want](images/image-225441306.png){#fig-aodn-screenshot}
+
+### Step 3. Analysis in R
+
+-   Download R
+
+-   Download R-Studio
+
+-   Set-up a new project
+
+-   Read in data
+
+-   Fit a linear model of abundance as a function of time.
