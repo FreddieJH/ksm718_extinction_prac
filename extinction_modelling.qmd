@@ -6,7 +6,7 @@ description: "KSM718 Practical #2"
 date: "2023-02-28"
 toc: true
 title-block-banner: true
-author-title: Author
+author-title: Leading the practical
 published-title: Practical date
 ---
 
@@ -77,12 +77,262 @@ We will split into pairs, each pair will try to get as much life-history informa
 
 ### Step 3. Analysis in R
 
--   Download R
+-   Download R (<https://cran.r-project.org/>)
 
--   Download R-Studio
+-   Download R-Studio (<https://posit.co/downloads/>)
 
 -   Set-up a new project
 
 -   Read in data
 
 -   Fit a linear model of abundance as a function of time.
+
+#### Working in projects in R
+
+*TLDR; work in projects, your life will be easier.*
+
+Think of projects and a folder where you would keep all your input data, output figures, output summary data etc.
+
+Working in projects makes your coding life much easier. R knows where to look for things, R knows where to output things, everything is organised, you will thank yourself later.
+
+Steps:
+
+-   Locate or create a file in your documents where you want to put all your R projects. For example I keep mine in "Documents/Work/R_projects/".
+
+-   Open R studio
+
+-   Create a new project, call it something useful, e.g. "ksm718_extinction_prac" or ksm718_prac2", avoid using spaces or capitals, instead use "\_".
+
+Note: When you open up the project in the future, just click on the .Rproj file, this will make sure your are actually working in that project. You can see which project you're working in at the top right of your Rstudio. See @fig-rproj.
+
+![Working in projects in Rstudio, here the project name is "extinction_modelling".](images/image-1928749062.png){#fig-rproj}
+
+#### Open a new script
+
+*TLDR; work in scripts, not in the console.*
+
+You *can* code directly into the console, and it will work, but it won't keep track of all your code. Sometimes I code directly into the console if I just want a quick answer for something, e.g.
+
+```{r}
+5*(6/9)
+```
+
+When you write in scripts, you can "send" that code to the console to run, and you can save the script and come back to it later. Not only is that important for you personally working on big R projects, but its important when you come to publishing your code when you publish a paper.
+
+To begin, write something in the R script, maybe start with a comment (use "\#" to signifiy a comment - R will ignore any text after a hashtag), then save the R file.
+
+```{r}
+# R script to analyse trends of species abundance
+```
+
+#### Getting the data into R
+
+```{r}
+#| include = FALSE
+set.seed(1)
+spp_selection <- 
+  read_csv("data/count_data.csv") |> 
+  filter(state == "Tasmania") |> 
+  pull(species_name) |> 
+  sample(20)
+
+read_csv("data/count_data.csv") |> 
+  filter(state == "Tasmania") |> 
+  filter(species_name %in% spp_selection) |> 
+  select(site_code, latitude, 
+         longitude, 
+         species_name, x1992:x2021) |> 
+  pivot_longer(cols = x1992:x2021, 
+               names_to = "year", 
+               values_to = "count", 
+               names_prefix = "x") |> 
+  mutate(year = as.integer(year)) |> 
+  filter(!is.na(count)) |> 
+  group_by(site_code, latitude, longitude, species_name, year) |> 
+  summarise(count = mean(count)) |> view()
+  write_csv("data/count_data_20spp.csv")
+
+```
+
+From Edgar et al (Accepted, 2023), I have randomly selected 20 Tasmanian species. I have called this file is called "count_data_20spp.csv".
+
+##### Putting the raw data where R can access it
+
+**Create a new folder** in the project directory, you can either do that in R studio or you can actually locate the folder on your computer and create a new folder there. I am going to call this folder "data", you could call it anything that makes sense to you and your organisation, maybe you want to call it "input" or "raw_data". Basically this is to organise you files and keep all your data files together.
+
+Here we are only using a single data file, but it may be the case you have hundreds or thousands, and that's where this organisation will benefit you heaps.
+
+Because we are working in projects, R already knows where to look (the location of the .Rproj file).
+
+First step is putting the raw data into the folder we just created ("data" or "input" or whatever you called it".
+
+Now lets read in the data...
+
+R likes **comma separated value files (.csv)**, it does not like .xlsx files as in the back end of the file there's heaps of extra information that Excel uses and that R does not care about (e.g. colours of excel cells etc.). R just wants the raw data, nothing else.
+
+##### Coding
+
+The first thing is normally do with a new script, is to load the `tidyverse` package. This package is actually a collection of packages, and is just a lot of code that has been developed to make coding in R much more friendly. It is the new approach to coding in R and its much better to learn 'the tidyverse way'. People talk about "Base R" vs "the Tidyvese", you will ultimately learn both. But start with the tidyverse.
+
+```{r}
+#| message = FALSE
+
+
+# If you have not installed the tidyverse on your computer before, uncomment the line below and install it. You only need to do that once. You can remove it from your script after you've done that. 
+# install.packages("tidyverse")
+
+# once installed we can load the package
+# we need to do this every time we use any tidyverse code, so leave that line at the top of your scripts
+library(tidyverse)
+
+```
+
+Now we can read in the csv file using the tidyverse function called `read_csv()`.
+
+```{r}
+
+# because I put the raw data into a folder called "data" I need to tell R to look in that folder for the file.
+read_csv("data/count_data_20spp.csv")
+```
+
+This will read the csv file and show it on the screen (thankfully it won't show us the whole 49K rows), but we want to assign it to an object so that we can use the file and manipulate it, or summarise it, or visualise it.
+
+```{r}
+raw_dat <- 
+  read_csv("data/count_data_20spp.csv")
+```
+
+##### Thinking about NA values
+
+In this dataset, we have zero values, and we have NA values. How we deal with NA values is an important thing to consider in the analysis, were there really zero individuals observed or where they not counted? In this dataset 0 values correspond to if a species has been previously observed at that site, and the site was surveyed and none were spotted, then it is a zero. NA values here correspond to the site not being surveyed in that year.
+
+First lets get rid of the years where the sites were not surveyed (NA values). We go from 49K rows to 14K rows, a lot more friendly.
+
+```{r}
+
+dat_no_na <- 
+  raw_dat |> 
+  drop_na(count)
+
+```
+
+First thing before we start analyses, **plot the data!** Let's take one species, e.g. Aracana aurita.
+
+```{r}
+
+# 980 rows
+dat_one_spp <- 
+  dat_no_na |> 
+  filter(species_name == "Aracana aurita") |> 
+  mutate(log_count = log(count))
+
+```
+
+There are lots of rows, as each site has its own time-series. How about we look at the time series for each site in a big plot?
+
+```{r}
+
+dat_one_spp |> 
+  ggplot() +
+  aes(x = year, 
+      y = log_count) + 
+  geom_path()  +
+  # seperate the data into a window (facet) for each site_code 
+  facet_wrap(~site_code, 
+             scales = "free_y")
+
+```
+
+Some time series are only two data points in length, probably not that informative, I would not be confident to say for example that the *Aracana aurita* is increasing at TAS174.
+
+One way to overcome this is the take an average across the sites.
+
+```{r}
+
+dat_one_spp_mean <- 
+  dat_one_spp |> 
+  group_by(year) |> 
+  summarise(log_count = mean(log_count))
+
+# average across all sites
+dat_one_spp_mean |> 
+  ggplot() +
+  aes(x = year, 
+      y = log_count) + 
+  geom_point() +
+  geom_path()
+
+```
+
+What is this species doing? Firstly it seems to be all over the place, but it does seem that in recent years it's lower. Is this significant. Let's see
+
+For now, we will convert all zero values to NA values.
+
+```{r}
+
+lm1 <- lm(log_count ~ year, data = dat_one_spp_mean) 
+
+summary(lm1)
+
+```
+
+No significant slope, i.e. no increase or decline. However, by taking an average of all of the sites, we are removing a lot of data. We could also use a linear mixed effects model to model this time-series.
+
+```{r}
+
+# This package allows us to get a p-value from the model
+# We can talk more about the appropriateness of getting a p-value from a mixed model
+library(lmerTest)
+
+lmer1 <- lmerTest::lmer(log_count ~ year + (1|site_code), data = dat_one_spp) 
+summary(lmer1)
+
+```
+
+By including all the data, we have significant decline in the count of the species.
+
+```{r}
+
+intercept_value <- coef(summary(lmer1))[1, 1]
+slope_value <- coef(summary(lmer1))[2, 1]
+
+
+dat_one_spp |> 
+  mutate(prediction = predict(lmer1)) |> 
+  ggplot(aes(x = year, 
+             y = log(count))) + 
+  geom_abline(intercept = intercept_value,
+              slope = slope_value) +
+  geom_point()
+```
+
+```{r}
+
+read_csv("data/count_data_20spp.csv") |> 
+  filter(species_name == "Aracana aurita") |> 
+  # filter(count != 0) |> 
+  group_by(year) |> 
+  summarise(count = mean(count, na.rm = TRUE)) |> 
+  ggplot(aes(x = year, 
+             y = count)) + 
+  geom_line() +
+  geom_point()
+
+```
+
+### Contact
+
++:---------------------------------------------:+---------------------------+---------------------------------+
+| ![](images/image-1625305563.png){width="100"} | **Freddie Heather**,      | freddie.heather\@utas.edu.au    |
+|                                               |                           |                                 |
+|                                               | *Demonstrator*            |                                 |
++-----------------------------------------------+---------------------------+---------------------------------+
+| ![](images/image-92218207.png){width="100"}   | **Tyson Bessell**,        | tyson.bessell\@utas.edu.au      |
+|                                               |                           |                                 |
+|                                               | *Demonstrator*            |                                 |
++-----------------------------------------------+---------------------------+---------------------------------+
+| ![](images/image-1638117212.png){width="100"} | **Jemina Stuart-Smith**,\ | jemina.stuartsmith\@utas.edu.au |
+|                                               | *Lecturer + Demonstrator* |                                 |
++-----------------------------------------------+---------------------------+---------------------------------+
+
+\*Any typos or errors in this document; email freddie.heather\@utas.edu.au
