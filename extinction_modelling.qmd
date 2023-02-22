@@ -129,28 +129,28 @@ To begin, write something in the R script, maybe start with a comment (use "\#" 
 
 ```{r}
 #| include = FALSE
-set.seed(1)
-spp_selection <- 
-  read_csv("data/count_data.csv") |> 
-  filter(state == "Tasmania") |> 
-  pull(species_name) |> 
-  sample(20)
-
-read_csv("data/count_data.csv") |> 
-  filter(state == "Tasmania") |> 
-  filter(species_name %in% spp_selection) |> 
-  select(site_code, latitude, 
-         longitude, 
-         species_name, x1992:x2021) |> 
-  pivot_longer(cols = x1992:x2021, 
-               names_to = "year", 
-               values_to = "count", 
-               names_prefix = "x") |> 
-  mutate(year = as.integer(year)) |> 
-  filter(!is.na(count)) |> 
-  group_by(site_code, latitude, longitude, species_name, year) |> 
-  summarise(count = mean(count)) |> view()
-  write_csv("data/count_data_20spp.csv")
+# set.seed(1)
+# spp_selection <- 
+#   read_csv("data/count_data.csv") |> 
+#   filter(state == "Tasmania") |> 
+#   pull(species_name) |> 
+#   sample(20)
+# 
+# read_csv("data/count_data.csv") |> 
+#   filter(state == "Tasmania") |> 
+#   filter(species_name %in% spp_selection) |> 
+#   select(site_code, latitude, 
+#          longitude, 
+#          species_name, x1992:x2021) |> 
+#   pivot_longer(cols = x1992:x2021, 
+#                names_to = "year", 
+#                values_to = "count", 
+#                names_prefix = "x") |> 
+#   mutate(year = as.integer(year)) |> 
+#   filter(!is.na(count)) |> 
+#   group_by(site_code, latitude, longitude, species_name, year) |> 
+#   summarise(count = mean(count)) |> view()
+#   write_csv("data/count_data_20spp.csv")
 
 ```
 
@@ -252,13 +252,13 @@ One way to overcome this is the take an average across the sites.
 dat_one_spp_mean <- 
   dat_one_spp |> 
   group_by(year) |> 
-  summarise(log_count = mean(log_count))
+  summarise(count = mean(count))
 
 # average across all sites
 dat_one_spp_mean |> 
   ggplot() +
   aes(x = year, 
-      y = log_count) + 
+      y = count) + 
   geom_point() +
   geom_path()
 
@@ -270,7 +270,7 @@ For now, we will convert all zero values to NA values.
 
 ```{r}
 
-lm1 <- lm(log_count ~ year, data = dat_one_spp_mean) 
+lm1 <- lm(count ~ year, data = dat_one_spp_mean) 
 
 summary(lm1)
 
@@ -284,7 +284,7 @@ No significant slope, i.e. no increase or decline. However, by taking an average
 # We can talk more about the appropriateness of getting a p-value from a mixed model
 library(lmerTest)
 
-lmer1 <- lmerTest::lmer(log_count ~ year + (1|site_code), data = dat_one_spp) 
+lmer1 <- lmerTest::lmer(count ~ year + (1|site_code), data = dat_one_spp) 
 summary(lmer1)
 
 ```
