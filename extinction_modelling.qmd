@@ -1,14 +1,24 @@
 ---
 title: "Heading to extinction?"
 subtitle: "A simple linear modelling approach to assessing species' population trends"
-author: Dr. Freddie Heather 
+author: Freddie Heather 
 description: "KSM718 Practical #2"
 date: "2023-02-28"
 toc: true
 title-block-banner: true
-author-title: Leading the practical
+author-title: Author
 published-title: Practical date
 ---
+
+```{r}
+#| include = FALSE
+
+knitr::opts_chunk$set(
+  message = FALSE,
+  error = FALSE,
+  warning = FALSE
+)
+```
 
 ## Background
 
@@ -210,6 +220,7 @@ First lets get rid of the years where the sites were not surveyed (NA values). W
 
 ```{r}
 
+# Removing rows that have an NA in the count column
 dat_no_na <- 
   raw_dat |> 
   drop_na(count)
@@ -224,7 +235,7 @@ First thing before we start analyses, **plot the data!** Let's take one species,
 dat_one_spp <- 
   dat_no_na |> 
   filter(species_name == "Aracana aurita") |> 
-  mutate(log_count = log(count))
+  mutate(log_count = log(count + 1))
 
 ```
 
@@ -233,6 +244,7 @@ There are lots of rows, as each site has its own time-series. How about we look 
 ```{r}
 
 dat_one_spp |> 
+  filter(str_detect(site_code, "TI-S|TN")) |> # selecting a few sites only
   ggplot() +
   aes(x = year, 
       y = log_count) + 
@@ -252,13 +264,13 @@ One way to overcome this is the take an average across the sites.
 dat_one_spp_mean <- 
   dat_one_spp |> 
   group_by(year) |> 
-  summarise(count = mean(count))
+  summarise(mean_log_count = mean(log_count))
 
 # average across all sites
 dat_one_spp_mean |> 
   ggplot() +
   aes(x = year, 
-      y = count) + 
+      y = mean_log_count) + 
   geom_point() +
   geom_path()
 
@@ -270,7 +282,7 @@ For now, we will convert all zero values to NA values.
 
 ```{r}
 
-lm1 <- lm(count ~ year, data = dat_one_spp_mean) 
+lm1 <- lm(mean_log_count ~ year, data = dat_one_spp_mean) 
 
 summary(lm1)
 
@@ -284,7 +296,7 @@ No significant slope, i.e. no increase or decline. However, by taking an average
 # We can talk more about the appropriateness of getting a p-value from a mixed model
 library(lmerTest)
 
-lmer1 <- lmerTest::lmer(count ~ year + (1|site_code), data = dat_one_spp) 
+lmer1 <- lmerTest::lmer(log_count ~ year + (1|site_code), data = dat_one_spp) 
 summary(lmer1)
 
 ```
@@ -293,32 +305,46 @@ By including all the data, we have significant decline in the count of the speci
 
 ```{r}
 
+# Extracting the slope and intercept from the lmer
 intercept_value <- coef(summary(lmer1))[1, 1]
 slope_value <- coef(summary(lmer1))[2, 1]
 
 
 dat_one_spp |> 
-  mutate(prediction = predict(lmer1)) |> 
   ggplot(aes(x = year, 
-             y = log(count))) + 
+             y = log_count)) +
+  geom_point(col = "grey") + 
+  geom_line(aes(group = site_code), 
+            col = "grey") +
   geom_abline(intercept = intercept_value,
-              slope = slope_value) +
-  geom_point()
-```
-
-```{r}
-
-read_csv("data/count_data_20spp.csv") |> 
-  filter(species_name == "Aracana aurita") |> 
-  # filter(count != 0) |> 
-  group_by(year) |> 
-  summarise(count = mean(count, na.rm = TRUE)) |> 
-  ggplot(aes(x = year, 
-             y = count)) + 
-  geom_line() +
-  geom_point()
+              slope = slope_value, 
+              size = 2, 
+              col = "red") +
+  theme_classic(20) +
+  labs(
+    x = "Year",
+    y = "log(count)"
+  )
 
 ```
+
+### Discussion
+
+-   Why does the linear model slope differ from the linear mixed model slope?
+
+-   What are some immediate thoughts when you visualised the data?
+
+-   Is the result unexpected?
+
+-   Do you trust the result?
+
+-   What other modelling approaches could we do?
+
+-   Can we extrapolate from this linear model into the future?
+
+-   Is removing the NA values appropriate?
+
+-    Is removing the zero values appropriate?
 
 ### Contact
 
