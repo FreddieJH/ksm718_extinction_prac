@@ -216,9 +216,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <section id="the-approach" class="level2">
 <h2 class="anchored" data-anchor-id="the-approach">The approach</h2>
 <p><strong>1. It starts with an observation or idea:</strong></p>
-<p>“<em>Has anyone noticed how we’ve started seeing a heap more tropical fish in our dives around Bicheno?</em>”.</p>
+<p>“<em>Has anyone noticed how we’ve started seeing a heap more warm-affinity fish in our dives around Bicheno?</em>”.</p>
 <p><strong>2. Leading into a formal hypothesis or question:</strong></p>
-<p>What are the population trends of temperate and tropical fish species across Tassie in the past decade?</p>
+<p>What are the population trends of fish species across Tassie in the past decade, and how is that related to the thermal affinity of the species?</p>
 <p><strong>3. Thinking about how we might analyse this:</strong></p>
 <p>For a single species, we could look at the abundance of each species over time - this could give us an idea about whether that species is going up, down, or remaining constant.</p>
 <div id="fig-scribble1" class="quarto-figure quarto-figure-center anchored">
@@ -237,10 +237,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </section>
 <section id="todays-practical" class="level2">
 <h2 class="anchored" data-anchor-id="todays-practical">Today’s practical</h2>
-<p>Edgar et al (Accepted, 2023) looked at the species trends for 1057 species. In this practical we will look at 20 of those species. The steps we will follow we be as follows:</p>
+<p>Edgar et al (Accepted, 2023) looked at the species trends for 1057 species. In this practical we will look at a random selection of 20 of those species. The steps we will follow are:</p>
 <ol type="1">
 <li>Get general life history information about each species, e.g.&nbsp;mean or maximal body size of the species, thermal preference.</li>
-<li>Getting fish abundance data from from the Reef Life Survey (RLS)</li>
+<li>Get fish abundance data from from the Reef Life Survey (RLS)</li>
 <li>Use R to analyse and quantify population trends.</li>
 </ol>
 <section id="step-1.-getting-life-history-data" class="level3">
@@ -258,7 +258,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <section id="step-2.-getting-abundance-data" class="level3">
 <h3 class="anchored" data-anchor-id="step-2.-getting-abundance-data">Step 2. Getting abundance data</h3>
 <ul>
-<li>Check out https://www.reeflifesurvey.com, which will take you over to the AODN portal (<a href="#fig-aodn-screenshot">Figure&nbsp;4</a>):</li>
+<li>Try and access the survey data from <a href="https://www.reeflifesurvey.com" class="uri">https://www.reeflifesurvey.com</a>, which will take you over to the AODN portal (<a href="#fig-aodn-screenshot">Figure&nbsp;4</a>):</li>
 </ul>
 <div id="fig-aodn-screenshot" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
@@ -287,7 +287,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p>Open R studio</p></li>
 <li><p>Create a new project, call it something useful, e.g.&nbsp;“ksm718_extinction_prac” or ksm718_prac2”, avoid using spaces or capitals, instead use “_”.</p></li>
 </ul>
-<p>Note: When you open up the project in the future, just click on the .Rproj file, this will make sure your are actually working in that project. You can see which project you’re working in at the top right of your Rstudio. See <a href="#fig-rproj">Figure&nbsp;5</a>.</p>
+<p>Note: When you open up the project in the future, just click on the .Rproj file, this will make sure you are actually working in that project. You can see which project you’re working in at the top right of your Rstudio. See <a href="#fig-rproj">Figure&nbsp;5</a>.</p>
 <div id="fig-rproj" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
 <p><img src="images/image-1928749062.png" class="img-fluid figure-img"></p>
@@ -511,6 +511,8 @@ year -1.000</code></pre>
 <li><p>Why does the linear model slope differ from the linear mixed model slope?</p></li>
 <li><p>What are some immediate thoughts when you visualised the data?</p></li>
 <li><p>Is the result unexpected?</p></li>
+<li><p>What does the intercept value represent in the models?</p></li>
+<li><p>What does the slope value represent (in words)?</p></li>
 <li><p>Do you trust the result?</p></li>
 <li><p>What other modelling approaches could we do?</p></li>
 <li><p>Can we extrapolate from this linear model into the future?</p></li>

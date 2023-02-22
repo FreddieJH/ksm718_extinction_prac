@@ -43,11 +43,11 @@ This leads to the question:
 
 **1. It starts with an observation or idea:**
 
-"*Has anyone noticed how we've started seeing a heap more tropical fish in our dives around Bicheno?*".
+"*Has anyone noticed how we've started seeing a heap more warm-affinity fish in our dives around Bicheno?*".
 
 **2. Leading into a formal hypothesis or question:**
 
-What are the population trends of temperate and tropical fish species across Tassie in the past decade?
+What are the population trends of fish species across Tassie in the past decade, and how is that related to the thermal affinity of the species?
 
 **3. Thinking about how we might analyse this:**
 
@@ -61,10 +61,10 @@ The rate of decline in abundance over time, can give us an idea about how quickl
 
 ## Today's practical
 
-Edgar et al (Accepted, 2023) looked at the species trends for 1057 species. In this practical we will look at 20 of those species. The steps we will follow we be as follows:
+Edgar et al (Accepted, 2023) looked at the species trends for 1057 species. In this practical we will look at a random selection of 20 of those species. The steps we will follow are:
 
 1.  Get general life history information about each species, e.g. mean or maximal body size of the species, thermal preference.
-2.  Getting fish abundance data from from the Reef Life Survey (RLS)
+2.  Get fish abundance data from from the Reef Life Survey (RLS)
 3.  Use R to analyse and quantify population trends.
 
 ### Step 1. Getting life-history data
@@ -81,7 +81,7 @@ We will split into pairs, each pair will try to get as much life-history informa
 
 ### Step 2. Getting abundance data
 
--   Check out https://www.reeflifesurvey.com, which will take you over to the AODN portal (@fig-aodn-screenshot):
+-   Try and access the survey data from <https://www.reeflifesurvey.com>, which will take you over to the AODN portal (@fig-aodn-screenshot):
 
 ![Screen shot of the data extract we want](images/image-225441306.png){#fig-aodn-screenshot}
 
@@ -113,7 +113,7 @@ Steps:
 
 -   Create a new project, call it something useful, e.g. "ksm718_extinction_prac" or ksm718_prac2", avoid using spaces or capitals, instead use "\_".
 
-Note: When you open up the project in the future, just click on the .Rproj file, this will make sure your are actually working in that project. You can see which project you're working in at the top right of your Rstudio. See @fig-rproj.
+Note: When you open up the project in the future, just click on the .Rproj file, this will make sure you are actually working in that project. You can see which project you're working in at the top right of your Rstudio. See @fig-rproj.
 
 ![Working in projects in Rstudio, here the project name is "extinction_modelling".](images/image-1928749062.png){#fig-rproj}
 
@@ -336,6 +336,10 @@ dat_one_spp |>
 
 -   Is the result unexpected?
 
+-   What does the intercept value represent in the models?
+
+-   What does the slope value represent (in words)?
+
 -   Do you trust the result?
 
 -   What other modelling approaches could we do?
@@ -344,7 +348,7 @@ dat_one_spp |>
 
 -   Is removing the NA values appropriate?
 
--    Is removing the zero values appropriate?
+-   Is removing the zero values appropriate?
 
 ### Contact
 
