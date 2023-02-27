@@ -22,7 +22,7 @@ knitr::opts_chunk$set(
 
 ## Background
 
-The vulnerability of a species to extinction is dependant upon many life history parameters or other factors, such as:
+The vulnerability of a species to extinction is dependant upon many life history parameters and other factors, such as:
 
 1.  Body size
 2.  Thermal tolerance
@@ -167,6 +167,10 @@ To begin, write something in the R script, maybe start with a comment (use "\#" 
 
 From Edgar et al (Accepted, 2023), I have randomly selected 20 Tasmanian species. I have called this file is called "count_data_20spp.csv".
 
+I have put the data into a Google Sheet, you can download it [here](https://docs.google.com/spreadsheets/d/1I4c4LznebmJUdhb0LjLV6yDZVus957c-G4o__1pajng/edit?usp=sharing). Copy these data, and paste them into Excel, and save the document as a **comma separated value files (.csv)** file.
+
+R likes .csv files, it does not like .xlsx files as they have heaps of extra information that Excel uses and that R does not care about (e.g. colours of excel cells, date formats etc.). R just wants the raw data, nothing else.
+
 ##### Putting the raw data where R can access it
 
 **Create a new folder** in the project directory, you can either do that in R studio or you can actually locate the folder on your computer and create a new folder there. I am going to call this folder "data" (you could call it anything that makes sense to you and your organisation, maybe you want to call it "input" or "raw_data"). Basically this is to organise your files and keep all your data together.
@@ -178,8 +182,6 @@ Because we are working in projects, R already knows where to look (the location 
 First step is putting the raw data into the folder we just created ("data" or "input" or whatever you called it).
 
 Now lets read in the data...
-
-R likes **comma separated value files (.csv)**, it does not like .xlsx files there's heaps of extra information that Excel uses and that R does not care about (e.g. colours of excel cells etc.). R just wants the raw data, nothing else.
 
 ##### Coding
 

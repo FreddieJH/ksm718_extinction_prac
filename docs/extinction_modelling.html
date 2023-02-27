@@ -194,7 +194,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <section id="background" class="level2">
 <h2 class="anchored" data-anchor-id="background">Background</h2>
-<p>The vulnerability of a species to extinction is dependant upon many life history parameters or other factors, such as:</p>
+<p>The vulnerability of a species to extinction is dependant upon many life history parameters and other factors, such as:</p>
 <ol type="1">
 <li>Body size</li>
 <li>Thermal tolerance</li>
@@ -315,6 +315,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <section id="getting-the-data-into-r" class="level4">
 <h4 class="anchored" data-anchor-id="getting-the-data-into-r">Getting the data into R</h4>
 <p>From Edgar et al (Accepted, 2023), I have randomly selected 20 Tasmanian species. I have called this file is called “count_data_20spp.csv”.</p>
+<p>I have put the data into a Google Sheet, you can download it <a href="https://docs.google.com/spreadsheets/d/1I4c4LznebmJUdhb0LjLV6yDZVus957c-G4o__1pajng/edit?usp=sharing">here</a>. Copy these data, and paste them into Excel, and save the document as a <strong>comma separated value files (.csv)</strong> file.</p>
+<p>R likes .csv files, it does not like .xlsx files as they have heaps of extra information that Excel uses and that R does not care about (e.g.&nbsp;colours of excel cells, date formats etc.). R just wants the raw data, nothing else.</p>
 <section id="putting-the-raw-data-where-r-can-access-it" class="level5">
 <h5 class="anchored" data-anchor-id="putting-the-raw-data-where-r-can-access-it">Putting the raw data where R can access it</h5>
 <p><strong>Create a new folder</strong> in the project directory, you can either do that in R studio or you can actually locate the folder on your computer and create a new folder there. I am going to call this folder “data” (you could call it anything that makes sense to you and your organisation, maybe you want to call it “input” or “raw_data”). Basically this is to organise your files and keep all your data together.</p>
@@ -322,7 +324,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Because we are working in projects, R already knows where to look (the location of the .Rproj file).</p>
 <p>First step is putting the raw data into the folder we just created (“data” or “input” or whatever you called it).</p>
 <p>Now lets read in the data…</p>
-<p>R likes <strong>comma separated value files (.csv)</strong>, it does not like .xlsx files there’s heaps of extra information that Excel uses and that R does not care about (e.g.&nbsp;colours of excel cells etc.). R just wants the raw data, nothing else.</p>
 </section>
 <section id="coding" class="level5">
 <h5 class="anchored" data-anchor-id="coding">Coding</h5>
