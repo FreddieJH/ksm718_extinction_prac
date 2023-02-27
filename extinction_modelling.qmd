@@ -22,7 +22,7 @@ knitr::opts_chunk$set(
 
 ## Background
 
-The vulnerability of a species to extinction is dependant upon many life history parameters, for example:
+The vulnerability of a species to extinction is dependant upon many life history parameters or other factors, such as:
 
 1.  Body size
 2.  Thermal tolerance
@@ -30,6 +30,7 @@ The vulnerability of a species to extinction is dependant upon many life history
 4.  Growth rate
 5.  Productivity
 6.  Migration ability
+7.  Current population size
 
 Focusing on one of these, thermal tolerance, we hypothesise that cooler species are being driven out from regions due to warming waters. Looking at @fig-edgar, we see that cooler species are generally declining in the southern parts of Australia, whilst warmer species are remaining consistent or increasing (in Tasmania at least).
 
@@ -55,7 +56,7 @@ For a single species, we could look at the abundance of each species over time -
 
 ![Back-of-envelope analysis of a single species population trend over time. Where a species may be increasing (orange), remaining constant (green), or declining (black).](images/Notes_230215_134427%20(5).jpg){#fig-scribble1}
 
-The rate of decline in abundance over time, can give us an idea about how quickly the species is heading to 'extinction' (@fig-slopes).
+The rate of decline in abundance over time can give us an idea about how quickly the species is heading to 'extinction' (@fig-slopes).
 
 ![Some species may decline more rapidly (species B) than others (species A). Is species B at greater risk of extinction?](images/image-2062724559.png){#fig-slopes}
 
@@ -77,7 +78,7 @@ Try and get as much information about the species as possible. Sources include:
 4.  Reef Life survey
 5.  ChatGPT - ask for a reference/source and **check that source!**
 
-We will split into pairs, each pair will try to get as much life-history information as possible. Input your data into the Google Doc [here](https://docs.google.com/spreadsheets/d/1xS3Vvh5dRKqeGZlLSjoFXsAyfxCWRKPGD8YZylSfWw0/edit?usp=sharing).
+We will split into pairs. Each pair will try to get as much life-history information as possible. Input your data into the Google Doc [here](https://docs.google.com/spreadsheets/d/1xS3Vvh5dRKqeGZlLSjoFXsAyfxCWRKPGD8YZylSfWw0/edit?usp=sharing).
 
 ### Step 2. Getting abundance data
 
@@ -101,9 +102,9 @@ We will split into pairs, each pair will try to get as much life-history informa
 
 *TLDR; work in projects, your life will be easier.*
 
-Think of projects and a folder where you would keep all your input data, output figures, output summary data etc.
+You can think of projects as a folder (aka. working directory) where you would keep all your input data, output figures, output summary data etc.
 
-Working in projects makes your coding life much easier. R knows where to look for things, R knows where to output things, everything is organised, you will thank yourself later.
+Working in projects makes your coding life much easier. R knows where to look for things, R knows where to output things, and everything is organised...you will thank yourself later.
 
 Steps:
 
@@ -111,7 +112,7 @@ Steps:
 
 -   Open R studio
 
--   Create a new project, call it something useful, e.g. "ksm718_extinction_prac" or ksm718_prac2", avoid using spaces or capitals, instead use "\_".
+-   Create a new project, call it something useful, e.g. "ksm718_extinction_prac" or "ksm718_prac2", avoid using spaces or capitals, instead use "\_".
 
 Note: When you open up the project in the future, just click on the .Rproj file, this will make sure you are actually working in that project. You can see which project you're working in at the top right of your Rstudio. See @fig-rproj.
 
@@ -127,7 +128,7 @@ You *can* code directly into the console, and it will work, but it won't keep tr
 5*(6/9)
 ```
 
-When you write in scripts, you can "send" that code to the console to run, and you can save the script and come back to it later. Not only is that important for you personally working on big R projects, but its important when you come to publishing your code when you publish a paper.
+When you write in scripts, you can "send" that code to the console to run, and you can save the script and come back to it later. Not only is that important when working on big R projects, but its important when you come to publishing your code when you publish a paper.
 
 To begin, write something in the R script, maybe start with a comment (use "\#" to signifiy a comment - R will ignore any text after a hashtag), then save the R file.
 
@@ -168,21 +169,21 @@ From Edgar et al (Accepted, 2023), I have randomly selected 20 Tasmanian species
 
 ##### Putting the raw data where R can access it
 
-**Create a new folder** in the project directory, you can either do that in R studio or you can actually locate the folder on your computer and create a new folder there. I am going to call this folder "data", you could call it anything that makes sense to you and your organisation, maybe you want to call it "input" or "raw_data". Basically this is to organise you files and keep all your data files together.
+**Create a new folder** in the project directory, you can either do that in R studio or you can actually locate the folder on your computer and create a new folder there. I am going to call this folder "data" (you could call it anything that makes sense to you and your organisation, maybe you want to call it "input" or "raw_data"). Basically this is to organise your files and keep all your data together.
 
 Here we are only using a single data file, but it may be the case you have hundreds or thousands, and that's where this organisation will benefit you heaps.
 
 Because we are working in projects, R already knows where to look (the location of the .Rproj file).
 
-First step is putting the raw data into the folder we just created ("data" or "input" or whatever you called it".
+First step is putting the raw data into the folder we just created ("data" or "input" or whatever you called it).
 
 Now lets read in the data...
 
-R likes **comma separated value files (.csv)**, it does not like .xlsx files as in the back end of the file there's heaps of extra information that Excel uses and that R does not care about (e.g. colours of excel cells etc.). R just wants the raw data, nothing else.
+R likes **comma separated value files (.csv)**, it does not like .xlsx files there's heaps of extra information that Excel uses and that R does not care about (e.g. colours of excel cells etc.). R just wants the raw data, nothing else.
 
 ##### Coding
 
-The first thing is normally do with a new script, is to load the `tidyverse` package. This package is actually a collection of packages, and is just a lot of code that has been developed to make coding in R much more friendly. It is the new approach to coding in R and its much better to learn 'the tidyverse way'. People talk about "Base R" vs "the Tidyvese", you will ultimately learn both. But start with the tidyverse.
+The first thing to normally do with a new script is to load the `tidyverse` package. This package is actually a collection of packages, and is just a lot of code that has been developed to make coding in R much more friendly. It is the new approach to coding in R and its much better to learn 'the tidyverse way'. People talk about "Base R" vs "the Tidyvese", you will ultimately learn both. But start with the tidyverse.
 
 ```{r}
 #| message = FALSE
@@ -214,7 +215,7 @@ raw_dat <-
 
 ##### Thinking about NA values
 
-In this dataset, we have zero values, and we have NA values. How we deal with NA values is an important thing to consider in the analysis, were there really zero individuals observed or where they not counted? In this dataset 0 values correspond to if a species has been previously observed at that site, and the site was surveyed and none were spotted, then it is a zero. NA values here correspond to the site not being surveyed in that year.
+In this dataset, we have zero values, and we have NA values. How we deal with NA values is an important thing to consider in the analysis, were there really zero individuals observed or were they not counted? In this dataset 0 values correspond to if a species has been previously observed at that site, and the site was surveyed and none were spotted, then it is a zero. NA values here correspond to the site not being surveyed in that year.
 
 First lets get rid of the years where the sites were not surveyed (NA values). We go from 49K rows to 14K rows, a lot more friendly.
 
@@ -255,9 +256,9 @@ dat_one_spp |>
 
 ```
 
-Some time series are only two data points in length, probably not that informative, I would not be confident to say for example that the *Aracana aurita* is increasing at TAS174.
+Some time series are only two data points in length, probably not that informative, I would not be confident to say, for example, that the *Aracana aurita* is increasing at TAS174.
 
-One way to overcome this is the take an average across the sites.
+One way to overcome this is to take an average across the sites.
 
 ```{r}
 
@@ -276,7 +277,7 @@ dat_one_spp_mean |>
 
 ```
 
-What is this species doing? Firstly it seems to be all over the place, but it does seem that in recent years it's lower. Is this significant. Let's see
+What is this species doing? Firstly it seems to be all over the place, but it does seem that in recent years it's lower. Is this significant? Let's see
 
 For now, we will convert all zero values to NA values.
 
@@ -301,7 +302,7 @@ summary(lmer1)
 
 ```
 
-By including all the data, we have significant decline in the count of the species.
+By including all the data, we have a significant decline in the count of the species.
 
 ```{r}
 
@@ -352,17 +353,17 @@ dat_one_spp |>
 
 ### Contact
 
-+:---------------------------------------------:+---------------------------+---------------------------------+
-| ![](images/image-1625305563.png){width="100"} | **Freddie Heather**,      | freddie.heather\@utas.edu.au    |
-|                                               |                           |                                 |
-|                                               | *Demonstrator*            |                                 |
-+-----------------------------------------------+---------------------------+---------------------------------+
-| ![](images/image-92218207.png){width="100"}   | **Tyson Bessell**,        | tyson.bessell\@utas.edu.au      |
-|                                               |                           |                                 |
-|                                               | *Demonstrator*            |                                 |
-+-----------------------------------------------+---------------------------+---------------------------------+
-| ![](images/image-1638117212.png){width="100"} | **Jemina Stuart-Smith**,\ | jemina.stuartsmith\@utas.edu.au |
-|                                               | *Lecturer + Demonstrator* |                                 |
-+-----------------------------------------------+---------------------------+---------------------------------+
++:---------------------------------------------:+-----------------------------------+------------------------------+
+| ![](images/image-1625305563.png){width="100"} | **Freddie Heather**,              | freddie.heather\@utas.edu.au |
+|                                               |                                   |                              |
+|                                               | *Demonstrator*                    |                              |
++-----------------------------------------------+-----------------------------------+------------------------------+
+| ![](images/image-92218207.png){width="100"}   | **Tyson Bessell**,                | tyson.bessell\@utas.edu.au   |
+|                                               |                                   |                              |
+|                                               | *Demonstrator*                    |                              |
++-----------------------------------------------+-----------------------------------+------------------------------+
+| ![](images/image-1032712891.png){width="100"} | **Mary-Anne Lea**,\               | MaryAnne.Lea\@utas.edu.au    |
+|                                               | *Unit coordinator + Demonstrator* |                              |
++-----------------------------------------------+-----------------------------------+------------------------------+
 
 \*Any typos or errors in this document; email freddie.heather\@utas.edu.au

@@ -194,7 +194,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <section id="background" class="level2">
 <h2 class="anchored" data-anchor-id="background">Background</h2>
-<p>The vulnerability of a species to extinction is dependant upon many life history parameters, for example:</p>
+<p>The vulnerability of a species to extinction is dependant upon many life history parameters or other factors, such as:</p>
 <ol type="1">
 <li>Body size</li>
 <li>Thermal tolerance</li>
@@ -202,6 +202,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>Growth rate</li>
 <li>Productivity</li>
 <li>Migration ability</li>
+<li>Current population size</li>
 </ol>
 <p>Focusing on one of these, thermal tolerance, we hypothesise that cooler species are being driven out from regions due to warming waters. Looking at <a href="#fig-edgar">Figure&nbsp;1</a>, we see that cooler species are generally declining in the southern parts of Australia, whilst warmer species are remaining consistent or increasing (in Tasmania at least).</p>
 <div id="fig-edgar" class="quarto-figure quarto-figure-center anchored">
@@ -227,7 +228,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p></p><figcaption class="figure-caption">Figure&nbsp;2: Back-of-envelope analysis of a single species population trend over time. Where a species may be increasing (orange), remaining constant (green), or declining (black).</figcaption><p></p>
 </figure>
 </div>
-<p>The rate of decline in abundance over time, can give us an idea about how quickly the species is heading to ‘extinction’ (<a href="#fig-slopes">Figure&nbsp;3</a>).</p>
+<p>The rate of decline in abundance over time can give us an idea about how quickly the species is heading to ‘extinction’ (<a href="#fig-slopes">Figure&nbsp;3</a>).</p>
 <div id="fig-slopes" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
 <p><img src="images/image-2062724559.png" class="img-fluid figure-img"></p>
@@ -253,7 +254,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>Reef Life survey</li>
 <li>ChatGPT - ask for a reference/source and <strong>check that source!</strong></li>
 </ol>
-<p>We will split into pairs, each pair will try to get as much life-history information as possible. Input your data into the Google Doc <a href="https://docs.google.com/spreadsheets/d/1xS3Vvh5dRKqeGZlLSjoFXsAyfxCWRKPGD8YZylSfWw0/edit?usp=sharing">here</a>.</p>
+<p>We will split into pairs. Each pair will try to get as much life-history information as possible. Input your data into the Google Doc <a href="https://docs.google.com/spreadsheets/d/1xS3Vvh5dRKqeGZlLSjoFXsAyfxCWRKPGD8YZylSfWw0/edit?usp=sharing">here</a>.</p>
 </section>
 <section id="step-2.-getting-abundance-data" class="level3">
 <h3 class="anchored" data-anchor-id="step-2.-getting-abundance-data">Step 2. Getting abundance data</h3>
@@ -279,13 +280,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <section id="working-in-projects-in-r" class="level4">
 <h4 class="anchored" data-anchor-id="working-in-projects-in-r">Working in projects in R</h4>
 <p><em>TLDR; work in projects, your life will be easier.</em></p>
-<p>Think of projects and a folder where you would keep all your input data, output figures, output summary data etc.</p>
-<p>Working in projects makes your coding life much easier. R knows where to look for things, R knows where to output things, everything is organised, you will thank yourself later.</p>
+<p>You can think of projects as a folder (aka. working directory) where you would keep all your input data, output figures, output summary data etc.</p>
+<p>Working in projects makes your coding life much easier. R knows where to look for things, R knows where to output things, and everything is organised…you will thank yourself later.</p>
 <p>Steps:</p>
 <ul>
 <li><p>Locate or create a file in your documents where you want to put all your R projects. For example I keep mine in “Documents/Work/R_projects/”.</p></li>
 <li><p>Open R studio</p></li>
-<li><p>Create a new project, call it something useful, e.g.&nbsp;“ksm718_extinction_prac” or ksm718_prac2”, avoid using spaces or capitals, instead use “_”.</p></li>
+<li><p>Create a new project, call it something useful, e.g.&nbsp;“ksm718_extinction_prac” or “ksm718_prac2”, avoid using spaces or capitals, instead use “_”.</p></li>
 </ul>
 <p>Note: When you open up the project in the future, just click on the .Rproj file, this will make sure you are actually working in that project. You can see which project you’re working in at the top right of your Rstudio. See <a href="#fig-rproj">Figure&nbsp;5</a>.</p>
 <div id="fig-rproj" class="quarto-figure quarto-figure-center anchored">
@@ -305,7 +306,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <pre><code>[1] 3.333333</code></pre>
 </div>
 </div>
-<p>When you write in scripts, you can “send” that code to the console to run, and you can save the script and come back to it later. Not only is that important for you personally working on big R projects, but its important when you come to publishing your code when you publish a paper.</p>
+<p>When you write in scripts, you can “send” that code to the console to run, and you can save the script and come back to it later. Not only is that important when working on big R projects, but its important when you come to publishing your code when you publish a paper.</p>
 <p>To begin, write something in the R script, maybe start with a comment (use “#” to signifiy a comment - R will ignore any text after a hashtag), then save the R file.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># R script to analyse trends of species abundance</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -316,16 +317,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>From Edgar et al (Accepted, 2023), I have randomly selected 20 Tasmanian species. I have called this file is called “count_data_20spp.csv”.</p>
 <section id="putting-the-raw-data-where-r-can-access-it" class="level5">
 <h5 class="anchored" data-anchor-id="putting-the-raw-data-where-r-can-access-it">Putting the raw data where R can access it</h5>
-<p><strong>Create a new folder</strong> in the project directory, you can either do that in R studio or you can actually locate the folder on your computer and create a new folder there. I am going to call this folder “data”, you could call it anything that makes sense to you and your organisation, maybe you want to call it “input” or “raw_data”. Basically this is to organise you files and keep all your data files together.</p>
+<p><strong>Create a new folder</strong> in the project directory, you can either do that in R studio or you can actually locate the folder on your computer and create a new folder there. I am going to call this folder “data” (you could call it anything that makes sense to you and your organisation, maybe you want to call it “input” or “raw_data”). Basically this is to organise your files and keep all your data together.</p>
 <p>Here we are only using a single data file, but it may be the case you have hundreds or thousands, and that’s where this organisation will benefit you heaps.</p>
 <p>Because we are working in projects, R already knows where to look (the location of the .Rproj file).</p>
-<p>First step is putting the raw data into the folder we just created (“data” or “input” or whatever you called it”.</p>
+<p>First step is putting the raw data into the folder we just created (“data” or “input” or whatever you called it).</p>
 <p>Now lets read in the data…</p>
-<p>R likes <strong>comma separated value files (.csv)</strong>, it does not like .xlsx files as in the back end of the file there’s heaps of extra information that Excel uses and that R does not care about (e.g.&nbsp;colours of excel cells etc.). R just wants the raw data, nothing else.</p>
+<p>R likes <strong>comma separated value files (.csv)</strong>, it does not like .xlsx files there’s heaps of extra information that Excel uses and that R does not care about (e.g.&nbsp;colours of excel cells etc.). R just wants the raw data, nothing else.</p>
 </section>
 <section id="coding" class="level5">
 <h5 class="anchored" data-anchor-id="coding">Coding</h5>
-<p>The first thing is normally do with a new script, is to load the <code>tidyverse</code> package. This package is actually a collection of packages, and is just a lot of code that has been developed to make coding in R much more friendly. It is the new approach to coding in R and its much better to learn ‘the tidyverse way’. People talk about “Base R” vs “the Tidyvese”, you will ultimately learn both. But start with the tidyverse.</p>
+<p>The first thing to normally do with a new script is to load the <code>tidyverse</code> package. This package is actually a collection of packages, and is just a lot of code that has been developed to make coding in R much more friendly. It is the new approach to coding in R and its much better to learn ‘the tidyverse way’. People talk about “Base R” vs “the Tidyvese”, you will ultimately learn both. But start with the tidyverse.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># If you have not installed the tidyverse on your computer before, uncomment the line below and install it. You only need to do that once. You can remove it from your script after you've done that. </span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="co"># install.packages("tidyverse")</span></span>
@@ -363,7 +364,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </section>
 <section id="thinking-about-na-values" class="level5">
 <h5 class="anchored" data-anchor-id="thinking-about-na-values">Thinking about NA values</h5>
-<p>In this dataset, we have zero values, and we have NA values. How we deal with NA values is an important thing to consider in the analysis, were there really zero individuals observed or where they not counted? In this dataset 0 values correspond to if a species has been previously observed at that site, and the site was surveyed and none were spotted, then it is a zero. NA values here correspond to the site not being surveyed in that year.</p>
+<p>In this dataset, we have zero values, and we have NA values. How we deal with NA values is an important thing to consider in the analysis, were there really zero individuals observed or were they not counted? In this dataset 0 values correspond to if a species has been previously observed at that site, and the site was surveyed and none were spotted, then it is a zero. NA values here correspond to the site not being surveyed in that year.</p>
 <p>First lets get rid of the years where the sites were not surveyed (NA values). We go from 49K rows to 14K rows, a lot more friendly.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Removing rows that have an NA in the count column</span></span>
@@ -394,8 +395,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p><img src="extinction_modelling_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
-<p>Some time series are only two data points in length, probably not that informative, I would not be confident to say for example that the <em>Aracana aurita</em> is increasing at TAS174.</p>
-<p>One way to overcome this is the take an average across the sites.</p>
+<p>Some time series are only two data points in length, probably not that informative, I would not be confident to say, for example, that the <em>Aracana aurita</em> is increasing at TAS174.</p>
+<p>One way to overcome this is to take an average across the sites.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>dat_one_spp_mean <span class="ot">&lt;-</span> </span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  dat_one_spp <span class="sc">|&gt;</span> </span>
@@ -413,7 +414,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p><img src="extinction_modelling_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
-<p>What is this species doing? Firstly it seems to be all over the place, but it does seem that in recent years it’s lower. Is this significant. Let’s see</p>
+<p>What is this species doing? Firstly it seems to be all over the place, but it does seem that in recent years it’s lower. Is this significant? Let’s see</p>
 <p>For now, we will convert all zero values to NA values.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>lm1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(mean_log_count <span class="sc">~</span> year, <span class="at">data =</span> dat_one_spp_mean) </span>
@@ -476,7 +477,7 @@ Correlation of Fixed Effects:
 year -1.000</code></pre>
 </div>
 </div>
-<p>By including all the data, we have significant decline in the count of the species.</p>
+<p>By including all the data, we have a significant decline in the count of the species.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Extracting the slope and intercept from the lmer</span></span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>intercept_value <span class="ot">&lt;-</span> <span class="fu">coef</span>(<span class="fu">summary</span>(lmer1))[<span class="dv">1</span>, <span class="dv">1</span>]</span>
@@ -524,9 +525,9 @@ year -1.000</code></pre>
 <h3 class="anchored" data-anchor-id="contact">Contact</h3>
 <table class="table">
 <colgroup>
-<col style="width: 43%">
-<col style="width: 25%">
-<col style="width: 30%">
+<col style="width: 41%">
+<col style="width: 31%">
+<col style="width: 26%">
 </colgroup>
 <tbody>
 <tr class="odd">
@@ -542,10 +543,10 @@ year -1.000</code></pre>
 <td>tyson.bessell@utas.edu.au</td>
 </tr>
 <tr class="odd">
-<td style="text-align: center;"><img src="images/image-1638117212.png" class="img-fluid" width="100"></td>
-<td><strong>Jemina Stuart-Smith</strong>,<br>
-<em>Lecturer + Demonstrator</em></td>
-<td>jemina.stuartsmith@utas.edu.au</td>
+<td style="text-align: center;"><img src="images/image-1032712891.png" class="img-fluid" width="100"></td>
+<td><strong>Mary-Anne Lea</strong>,<br>
+<em>Unit coordinator + Demonstrator</em></td>
+<td>MaryAnne.Lea@utas.edu.au</td>
 </tr>
 </tbody>
 </table>
