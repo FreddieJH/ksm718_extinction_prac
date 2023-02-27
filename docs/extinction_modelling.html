@@ -393,11 +393,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>site_code, </span>
 <span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>             <span class="at">scales =</span> <span class="st">"free_y"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="extinction_modelling_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid" width="672"></p>
+<div id="fig-trend6" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="extinction_modelling_files/figure-html/fig-trend6-1.png" class="img-fluid figure-img" width="672"></p>
+<p></p><figcaption class="figure-caption">Figure&nbsp;6: Population trends for Aracana aurita at six sites (a random subset).</figcaption><p></p>
+</figure>
 </div>
 </div>
-<p>Some time series are only two data points in length, probably not that informative, I would not be confident to say, for example, that the <em>Aracana aurita</em> is increasing at TAS174.</p>
-<p>One way to overcome this is to take an average across the sites.</p>
+</div>
+<p>Some time series are only a few data points in length, probably not that informative, I would not be confident to say, for example, that the <em>Aracana aurita</em> is increasing at TN-S9 (<a href="#fig-trend6">Figure&nbsp;6</a>).</p>
+<p>One way to overcome this is to take an average across the sites (<a href="#fig-trendmean">Figure&nbsp;7</a>).</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>dat_one_spp_mean <span class="ot">&lt;-</span> </span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  dat_one_spp <span class="sc">|&gt;</span> </span>
@@ -412,7 +417,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
 <span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_path</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="extinction_modelling_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid" width="672"></p>
+<div id="fig-trendmean" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="extinction_modelling_files/figure-html/fig-trendmean-1.png" class="img-fluid figure-img" width="672"></p>
+<p></p><figcaption class="figure-caption">Figure&nbsp;7: Mean population trends for Aracana aurita across all sites</figcaption><p></p>
+</figure>
+</div>
 </div>
 </div>
 <p>What is this species doing? Firstly it seems to be all over the place, but it does seem that in recent years it’s lower. Is this significant? Let’s see</p>
@@ -478,7 +488,7 @@ Correlation of Fixed Effects:
 year -1.000</code></pre>
 </div>
 </div>
-<p>By including all the data, we have a significant decline in the count of the species.</p>
+<p>By including all the data, we have a significant decline in the count of the species (<a href="#fig-trendlmer">Figure&nbsp;8</a>).</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Extracting the slope and intercept from the lmer</span></span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>intercept_value <span class="ot">&lt;-</span> <span class="fu">coef</span>(<span class="fu">summary</span>(lmer1))[<span class="dv">1</span>, <span class="dv">1</span>]</span>
@@ -501,7 +511,12 @@ year -1.000</code></pre>
 <span id="cb16-19"><a href="#cb16-19" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"log(count)"</span></span>
 <span id="cb16-20"><a href="#cb16-20" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="extinction_modelling_files/figure-html/unnamed-chunk-14-1.png" class="img-fluid" width="672"></p>
+<div id="fig-trendlmer" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="extinction_modelling_files/figure-html/fig-trendlmer-1.png" class="img-fluid figure-img" width="672"></p>
+<p></p><figcaption class="figure-caption">Figure&nbsp;8: Overall population trends for Aracana aurita, accounting for the variability between sites and showing a fitted linear mixed effects model (red line).</figcaption><p></p>
+</figure>
+</div>
 </div>
 </div>
 </section>

@@ -245,6 +245,8 @@ dat_one_spp <-
 There are lots of rows, as each site has its own time-series. How about we look at the time series for each site in a big plot?
 
 ```{r}
+#| fig-cap: "Population trends for Aracana aurita at six sites (a random subset)."
+#| label: "fig-trend6"
 
 dat_one_spp |> 
   filter(str_detect(site_code, "TI-S|TN")) |> # selecting a few sites only
@@ -258,11 +260,13 @@ dat_one_spp |>
 
 ```
 
-Some time series are only two data points in length, probably not that informative, I would not be confident to say, for example, that the *Aracana aurita* is increasing at TAS174.
+Some time series are only a few data points in length, probably not that informative, I would not be confident to say, for example, that the *Aracana aurita* is increasing at TN-S9 (@fig-trend6).
 
-One way to overcome this is to take an average across the sites.
+One way to overcome this is to take an average across the sites (@fig-trendmean).
 
 ```{r}
+#| fig-cap: "Mean population trends for Aracana aurita across all sites"
+#| label: "fig-trendmean"
 
 dat_one_spp_mean <- 
   dat_one_spp |> 
@@ -304,9 +308,11 @@ summary(lmer1)
 
 ```
 
-By including all the data, we have a significant decline in the count of the species.
+By including all the data, we have a significant decline in the count of the species (@fig-trendlmer).
 
 ```{r}
+#| fig-cap: "Overall population trends for Aracana aurita, accounting for the variability between sites and showing a fitted linear mixed effects model (red line)."
+#| label: "fig-trendlmer"
 
 # Extracting the slope and intercept from the lmer
 intercept_value <- coef(summary(lmer1))[1, 1]
