@@ -283,7 +283,7 @@ dat_one_spp_mean |>
 
 ```
 
-What is this species doing? Firstly it seems to be all over the place, but it does seem that in recent years it's lower. Is this significant? Let's see
+What is this species doing? Firstly it seems to be all over the place, but it does seem that in recent years it's lower. Is this significant? Let's see.
 
 For now, we will convert all zero values to NA values.
 
