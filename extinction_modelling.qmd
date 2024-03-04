@@ -35,7 +35,7 @@ The vulnerability of a species to extinction is dependant upon many life history
 
 Focusing on one of these, thermal tolerance, we hypothesise that cooler species are being driven out from regions due to warming waters. Looking at @fig-edgar, we see that cooler species are generally declining in the southern parts of Australia, whilst warmer species are remaining consistent or increasing (in Tasmania at least).
 
-![Mean population trends for cool-temperate, warm-temperate and tropical species in six geographic regions around Australia over the last 10 years. Image from Edgar et al (Accepted for publication, 2023).](images/image-1610494163.png){#fig-edgar}
+![Mean population trends for cool-temperate, warm-temperate and tropical species in six geographic regions around Australia over the last 10 years. Image from Edgar et al (2023).](images/image-1610494163.png){#fig-edgar}
 
 This leads to the question:
 
@@ -166,7 +166,7 @@ To begin, write something in the R script, maybe start with a comment (use "\#" 
 
 ```
 
-From Edgar et al (Accepted, 2023), I have randomly selected 20 Tasmanian species. I have called this file is called "count_data_20spp.csv".
+From Edgar et al (2023), I have randomly selected 20 Tasmanian species. I have called this file is called "count_data_20spp.csv".
 
 I have put the data into a Google Sheet, you can download it [here](https://docs.google.com/spreadsheets/d/1I4c4LznebmJUdhb0LjLV6yDZVus957c-G4o__1pajng/edit?usp=sharing). Copy these data, and paste them into Excel, and save the document as a **comma separated value files (.csv)** file.
 
