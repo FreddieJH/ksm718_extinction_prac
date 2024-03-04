@@ -63,7 +63,7 @@ The rate of decline in abundance over time can give us an idea about how quickly
 
 ## Today's practical
 
-Edgar et al (Accepted, 2023) looked at the species trends for 1057 species. In this practical we will look at a random selection of 20 of those species. The steps we will follow are:
+Edgar et al (2023) looked at the species trends for 1057 species. In this practical we will look at a random selection of 20 of those species. The steps we will follow are:
 
 1.  Get general life history information about each species, e.g. mean or maximal body size of the species, thermal preference.
 2.  Get fish abundance data from from the Reef Life Survey (RLS)
