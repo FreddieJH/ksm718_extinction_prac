@@ -2,9 +2,10 @@
 title: "Heading to extinction?"
 subtitle: "A simple linear modelling approach to assessing species' population trends"
 author: Freddie Heather 
-description: "KSM718 Practical #2"
-date: "2023-02-28"
+description: "KSM718 Extinction Practical"
+date: "2024-03-07"
 toc: true
+toc-depth: 4
 title-block-banner: true
 author-title: Author
 published-title: Practical date
@@ -361,17 +362,13 @@ dat_one_spp |>
 
 ### Contact
 
-+:---------------------------------------------:+-----------------------------------+------------------------------+
-| ![](images/image-1625305563.png){width="100"} | **Freddie Heather**,              | freddie.heather\@utas.edu.au |
-|                                               |                                   |                              |
-|                                               | *Demonstrator*                    |                              |
-+-----------------------------------------------+-----------------------------------+------------------------------+
-| ![](images/image-92218207.png){width="100"}   | **Tyson Bessell**,                | tyson.bessell\@utas.edu.au   |
-|                                               |                                   |                              |
-|                                               | *Demonstrator*                    |                              |
-+-----------------------------------------------+-----------------------------------+------------------------------+
-| ![](images/image-1032712891.png){width="100"} | **Mary-Anne Lea**,\               | MaryAnne.Lea\@utas.edu.au    |
-|                                               | *Unit coordinator + Demonstrator* |                              |
-+-----------------------------------------------+-----------------------------------+------------------------------+
++:---------------------------------------------:+---------------------------+---------------------------------+
+| ![](images/image-1625305563.png){width="100"} | **Freddie Heather**,      | freddie.heather\@utas.edu.au    |
+|                                               |                           |                                 |
+|                                               | *Demonstrator*            |                                 |
++-----------------------------------------------+---------------------------+---------------------------------+
+| ![](images/image-1638117212.png){width="100"} | **Jemina Stuart-Smith**,\ | Jemina.StuartSmith\@utas.edu.au |
+|                                               | *Unit coordinator*        |                                 |
++-----------------------------------------------+---------------------------+---------------------------------+
 
 \*Any typos or errors in this document; email freddie.heather\@utas.edu.au

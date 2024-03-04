@@ -2,13 +2,13 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.3.34">
+<meta name="generator" content="quarto-1.4.226">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Freddie Heather">
-<meta name="dcterms.date" content="2023-02-28">
-<meta name="description" content="KSM718 Practical #2">
+<meta name="dcterms.date" content="2024-03-07">
+<meta name="description" content="KSM718 Extinction Practical">
 
 <title>extinction_modelling - Heading to extinction?</title>
 <style>
@@ -20,9 +20,10 @@ div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
 ul.task-list{list-style: none;}
 ul.task-list li input[type="checkbox"] {
   width: 0.8em;
-  margin: 0 0.8em 0.2em -1.6em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
 pre > code.sourceCode { white-space: pre; position: relative; }
 pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
@@ -49,43 +50,13 @@ pre.numberSource code > span > a:first-child::before
     -khtml-user-select: none; -moz-user-select: none;
     -ms-user-select: none; user-select: none;
     padding: 0 4px; width: 4em;
-    color: #aaaaaa;
   }
-pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
 div.sourceCode
   {   }
 @media screen {
 pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
-code span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code span.at { color: #7d9029; } /* Attribute */
-code span.bn { color: #40a070; } /* BaseN */
-code span.bu { color: #008000; } /* BuiltIn */
-code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code span.ch { color: #4070a0; } /* Char */
-code span.cn { color: #880000; } /* Constant */
-code span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code span.dt { color: #902000; } /* DataType */
-code span.dv { color: #40a070; } /* DecVal */
-code span.er { color: #ff0000; font-weight: bold; } /* Error */
-code span.ex { } /* Extension */
-code span.fl { color: #40a070; } /* Float */
-code span.fu { color: #06287e; } /* Function */
-code span.im { color: #008000; font-weight: bold; } /* Import */
-code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
-code span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code span.op { color: #666666; } /* Operator */
-code span.ot { color: #007020; } /* Other */
-code span.pp { color: #bc7a00; } /* Preprocessor */
-code span.sc { color: #4070a0; } /* SpecialChar */
-code span.ss { color: #bb6688; } /* SpecialString */
-code span.st { color: #4070a0; } /* String */
-code span.va { color: #19177c; } /* Variable */
-code span.vs { color: #4070a0; } /* VerbatimString */
-code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
 
@@ -111,6 +82,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   "panel-placement": "start",
   "type": "textbox",
   "limit": 20,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
   "language": {
     "search-no-results-text": "No results",
     "search-matching-documents-text": "matching documents",
@@ -120,7 +96,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     "search-more-matches-text": "more matches in this document",
     "search-clear-button-title": "Clear",
     "search-detached-cancel-button-title": "Cancel",
-    "search-submit-button-title": "Submit"
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
   }
 }</script>
 
@@ -138,7 +115,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
             <p class="subtitle lead">A simple linear modelling approach to assessing species’ population trends</p>
                   <div>
         <div class="description">
-          KSM718 Practical #2
+          KSM718 Extinction Practical
         </div>
       </div>
                 </div>
@@ -157,7 +134,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <div>
       <div class="quarto-title-meta-heading">Practical date</div>
       <div class="quarto-title-meta-contents">
-        <p class="date">February 28, 2023</p>
+        <p class="date">March 7, 2024</p>
       </div>
     </div>
     
@@ -176,10 +153,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <li><a href="#background" id="toc-background" class="nav-link active" data-scroll-target="#background">Background</a></li>
   <li><a href="#the-approach" id="toc-the-approach" class="nav-link" data-scroll-target="#the-approach">The approach</a></li>
   <li><a href="#todays-practical" id="toc-todays-practical" class="nav-link" data-scroll-target="#todays-practical">Today’s practical</a>
-  <ul class="collapse">
+  <ul>
   <li><a href="#step-1.-getting-life-history-data" id="toc-step-1.-getting-life-history-data" class="nav-link" data-scroll-target="#step-1.-getting-life-history-data">Step 1. Getting life-history data</a></li>
   <li><a href="#step-2.-getting-abundance-data" id="toc-step-2.-getting-abundance-data" class="nav-link" data-scroll-target="#step-2.-getting-abundance-data">Step 2. Getting abundance data</a></li>
-  <li><a href="#step-3.-analysis-in-r" id="toc-step-3.-analysis-in-r" class="nav-link" data-scroll-target="#step-3.-analysis-in-r">Step 3. Analysis in R</a></li>
+  <li><a href="#step-3.-analysis-in-r" id="toc-step-3.-analysis-in-r" class="nav-link" data-scroll-target="#step-3.-analysis-in-r">Step 3. Analysis in R</a>
+  <ul class="collapse">
+  <li><a href="#working-in-projects-in-r" id="toc-working-in-projects-in-r" class="nav-link" data-scroll-target="#working-in-projects-in-r">Working in projects in R</a></li>
+  <li><a href="#open-a-new-script" id="toc-open-a-new-script" class="nav-link" data-scroll-target="#open-a-new-script">Open a new script</a></li>
+  <li><a href="#getting-the-data-into-r" id="toc-getting-the-data-into-r" class="nav-link" data-scroll-target="#getting-the-data-into-r">Getting the data into R</a></li>
+  </ul></li>
   <li><a href="#discussion" id="toc-discussion" class="nav-link" data-scroll-target="#discussion">Discussion</a></li>
   <li><a href="#contact" id="toc-contact" class="nav-link" data-scroll-target="#contact">Contact</a></li>
   </ul></li>
@@ -204,11 +186,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>Migration ability</li>
 <li>Current population size</li>
 </ol>
-<p>Focusing on one of these, thermal tolerance, we hypothesise that cooler species are being driven out from regions due to warming waters. Looking at <a href="#fig-edgar">Figure&nbsp;1</a>, we see that cooler species are generally declining in the southern parts of Australia, whilst warmer species are remaining consistent or increasing (in Tasmania at least).</p>
+<p>Focusing on one of these, thermal tolerance, we hypothesise that cooler species are being driven out from regions due to warming waters. Looking at <a href="#fig-edgar" class="quarto-xref">Figure&nbsp;1</a>, we see that cooler species are generally declining in the southern parts of Australia, whilst warmer species are remaining consistent or increasing (in Tasmania at least).</p>
 <div id="fig-edgar" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
 <p><img src="images/image-1610494163.png" class="img-fluid figure-img"></p>
-<p></p><figcaption class="figure-caption">Figure&nbsp;1: Mean population trends for cool-temperate, warm-temperate and tropical species in six geographic regions around Australia over the last 10 years. Image from Edgar et al (Accepted for publication, 2023).</figcaption><p></p>
+<figcaption class="figure-caption">Figure&nbsp;1: Mean population trends for cool-temperate, warm-temperate and tropical species in six geographic regions around Australia over the last 10 years. Image from Edgar et al (Accepted for publication, 2023).</figcaption>
 </figure>
 </div>
 <p>This leads to the question:</p>
@@ -225,14 +207,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="fig-scribble1" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
 <p><img src="images/Notes_230215_134427 (5).jpg" class="img-fluid figure-img"></p>
-<p></p><figcaption class="figure-caption">Figure&nbsp;2: Back-of-envelope analysis of a single species population trend over time. Where a species may be increasing (orange), remaining constant (green), or declining (black).</figcaption><p></p>
+<figcaption class="figure-caption">Figure&nbsp;2: Back-of-envelope analysis of a single species population trend over time. Where a species may be increasing (orange), remaining constant (green), or declining (black).</figcaption>
 </figure>
 </div>
-<p>The rate of decline in abundance over time can give us an idea about how quickly the species is heading to ‘extinction’ (<a href="#fig-slopes">Figure&nbsp;3</a>).</p>
+<p>The rate of decline in abundance over time can give us an idea about how quickly the species is heading to ‘extinction’ (<a href="#fig-slopes" class="quarto-xref">Figure&nbsp;3</a>).</p>
 <div id="fig-slopes" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
 <p><img src="images/image-2062724559.png" class="img-fluid figure-img"></p>
-<p></p><figcaption class="figure-caption">Figure&nbsp;3: Some species may decline more rapidly (species B) than others (species A). Is species B at greater risk of extinction?</figcaption><p></p>
+<figcaption class="figure-caption">Figure&nbsp;3: Some species may decline more rapidly (species B) than others (species A). Is species B at greater risk of extinction?</figcaption>
 </figure>
 </div>
 </section>
@@ -259,12 +241,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <section id="step-2.-getting-abundance-data" class="level3">
 <h3 class="anchored" data-anchor-id="step-2.-getting-abundance-data">Step 2. Getting abundance data</h3>
 <ul>
-<li>Try and access the survey data from <a href="https://www.reeflifesurvey.com" class="uri">https://www.reeflifesurvey.com</a>, which will take you over to the AODN portal (<a href="#fig-aodn-screenshot">Figure&nbsp;4</a>):</li>
+<li>Try and access the survey data from <a href="https://www.reeflifesurvey.com" class="uri">https://www.reeflifesurvey.com</a>, which will take you over to the AODN portal (<a href="#fig-aodn-screenshot" class="quarto-xref">Figure&nbsp;4</a>):</li>
 </ul>
 <div id="fig-aodn-screenshot" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
 <p><img src="images/image-225441306.png" class="img-fluid figure-img"></p>
-<p></p><figcaption class="figure-caption">Figure&nbsp;4: Screen shot of the data extract we want</figcaption><p></p>
+<figcaption class="figure-caption">Figure&nbsp;4: Screen shot of the data extract we want</figcaption>
 </figure>
 </div>
 </section>
@@ -288,11 +270,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p>Open R studio</p></li>
 <li><p>Create a new project, call it something useful, e.g.&nbsp;“ksm718_extinction_prac” or “ksm718_prac2”, avoid using spaces or capitals, instead use “_”.</p></li>
 </ul>
-<p>Note: When you open up the project in the future, just click on the .Rproj file, this will make sure you are actually working in that project. You can see which project you’re working in at the top right of your Rstudio. See <a href="#fig-rproj">Figure&nbsp;5</a>.</p>
+<p>Note: When you open up the project in the future, just click on the .Rproj file, this will make sure you are actually working in that project. You can see which project you’re working in at the top right of your Rstudio. See <a href="#fig-rproj" class="quarto-xref">Figure&nbsp;5</a>.</p>
 <div id="fig-rproj" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
 <p><img src="images/image-1928749062.png" class="img-fluid figure-img"></p>
-<p></p><figcaption class="figure-caption">Figure&nbsp;5: Working in projects in Rstudio, here the project name is “extinction_modelling”.</figcaption><p></p>
+<figcaption class="figure-caption">Figure&nbsp;5: Working in projects in Rstudio, here the project name is “extinction_modelling”.</figcaption>
 </figure>
 </div>
 </section>
@@ -354,7 +336,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
  8 BI-S1        -41.9      148. Aracana aurita  1999  0     
  9 BI-S1        -41.9      148. Aracana aurita  2000  0     
 10 BI-S1        -41.9      148. Aracana aurita  2001  0     
-# ... with 46,940 more rows</code></pre>
+# i 46,940 more rows</code></pre>
 </div>
 </div>
 <p>This will read the csv file and show it on the screen (thankfully it won’t show us the whole 49K rows), but we want to assign it to an object so that we can use the file and manipulate it, or summarise it, or visualise it.</p>
@@ -396,13 +378,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="fig-trend6" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
 <p><img src="extinction_modelling_files/figure-html/fig-trend6-1.png" class="img-fluid figure-img" width="672"></p>
-<p></p><figcaption class="figure-caption">Figure&nbsp;6: Population trends for Aracana aurita at six sites (a random subset).</figcaption><p></p>
+<figcaption class="figure-caption">Figure&nbsp;6: Population trends for Aracana aurita at six sites (a random subset).</figcaption>
 </figure>
 </div>
 </div>
 </div>
-<p>Some time series are only a few data points in length, probably not that informative, I would not be confident to say, for example, that the <em>Aracana aurita</em> is increasing at TN-S9 (<a href="#fig-trend6">Figure&nbsp;6</a>).</p>
-<p>One way to overcome this is to take an average across the sites (<a href="#fig-trendmean">Figure&nbsp;7</a>).</p>
+<p>Some time series are only a few data points in length, probably not that informative, I would not be confident to say, for example, that the <em>Aracana aurita</em> is increasing at TN-S9 (<a href="#fig-trend6" class="quarto-xref">Figure&nbsp;6</a>).</p>
+<p>One way to overcome this is to take an average across the sites (<a href="#fig-trendmean" class="quarto-xref">Figure&nbsp;7</a>).</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>dat_one_spp_mean <span class="ot">&lt;-</span> </span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  dat_one_spp <span class="sc">|&gt;</span> </span>
@@ -420,7 +402,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="fig-trendmean" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
 <p><img src="extinction_modelling_files/figure-html/fig-trendmean-1.png" class="img-fluid figure-img" width="672"></p>
-<p></p><figcaption class="figure-caption">Figure&nbsp;7: Mean population trends for Aracana aurita across all sites</figcaption><p></p>
+<figcaption class="figure-caption">Figure&nbsp;7: Mean population trends for Aracana aurita across all sites</figcaption>
 </figure>
 </div>
 </div>
@@ -488,7 +470,7 @@ Correlation of Fixed Effects:
 year -1.000</code></pre>
 </div>
 </div>
-<p>By including all the data, we have a significant decline in the count of the species (<a href="#fig-trendlmer">Figure&nbsp;8</a>).</p>
+<p>By including all the data, we have a significant decline in the count of the species (<a href="#fig-trendlmer" class="quarto-xref">Figure&nbsp;8</a>).</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Extracting the slope and intercept from the lmer</span></span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>intercept_value <span class="ot">&lt;-</span> <span class="fu">coef</span>(<span class="fu">summary</span>(lmer1))[<span class="dv">1</span>, <span class="dv">1</span>]</span>
@@ -514,7 +496,7 @@ year -1.000</code></pre>
 <div id="fig-trendlmer" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
 <p><img src="extinction_modelling_files/figure-html/fig-trendlmer-1.png" class="img-fluid figure-img" width="672"></p>
-<p></p><figcaption class="figure-caption">Figure&nbsp;8: Overall population trends for Aracana aurita, accounting for the variability between sites and showing a fitted linear mixed effects model (red line).</figcaption><p></p>
+<figcaption class="figure-caption">Figure&nbsp;8: Overall population trends for Aracana aurita, accounting for the variability between sites and showing a fitted linear mixed effects model (red line).</figcaption>
 </figure>
 </div>
 </div>
@@ -541,9 +523,9 @@ year -1.000</code></pre>
 <h3 class="anchored" data-anchor-id="contact">Contact</h3>
 <table class="table">
 <colgroup>
-<col style="width: 41%">
-<col style="width: 31%">
-<col style="width: 26%">
+<col style="width: 43%">
+<col style="width: 25%">
+<col style="width: 30%">
 </colgroup>
 <tbody>
 <tr class="odd">
@@ -553,16 +535,10 @@ year -1.000</code></pre>
 <td>freddie.heather@utas.edu.au</td>
 </tr>
 <tr class="even">
-<td style="text-align: center;"><img src="images/image-92218207.png" class="img-fluid" width="100"></td>
-<td><p><strong>Tyson Bessell</strong>,</p>
-<p><em>Demonstrator</em></p></td>
-<td>tyson.bessell@utas.edu.au</td>
-</tr>
-<tr class="odd">
-<td style="text-align: center;"><img src="images/image-1032712891.png" class="img-fluid" width="100"></td>
-<td><strong>Mary-Anne Lea</strong>,<br>
-<em>Unit coordinator + Demonstrator</em></td>
-<td>MaryAnne.Lea@utas.edu.au</td>
+<td style="text-align: center;"><img src="images/image-1638117212.png" class="img-fluid" width="100"></td>
+<td><strong>Jemina Stuart-Smith</strong>,<br>
+<em>Unit coordinator</em></td>
+<td>Jemina.StuartSmith@utas.edu.au</td>
 </tr>
 </tbody>
 </table>
@@ -600,9 +576,23 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     icon: icon
   };
   anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
   const clipboard = new window.ClipboardJS('.code-copy-button', {
-    target: function(trigger) {
-      return trigger.previousElementSibling;
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
     }
   });
   clipboard.on('success', function(e) {
@@ -638,10 +628,9 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     // clear code selection
     e.clearSelection();
   });
-  function tippyHover(el, contentFn) {
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
     const config = {
       allowHTML: true,
-      content: contentFn,
       maxWidth: 500,
       delay: 100,
       arrow: false,
@@ -651,8 +640,17 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       interactive: true,
       interactiveBorder: 10,
       theme: 'quarto',
-      placement: 'bottom-start'
+      placement: 'bottom-start',
     };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
     window.tippy(el, config); 
   }
   const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
@@ -667,6 +665,147 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       return note.innerHTML;
     });
   }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    if (id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        for (let i = 0; i < 2; i++) {
+          container.appendChild(note.children[i].cloneNode(true));
+        }
+        return container.innerHTML
+      } else {
+        return note.innerHTML;
+      }
+    } else {
+      return note.innerHTML;
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      try { hash = new URL(url).hash; } catch {}
+      const id = hash.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note !== null) {
+        try {
+          const html = processXRef(id, note);
+          instance.setContent(html);
+        } finally {
+          instance.enable();
+          instance.show();
+        }
+      } else {
+        // See if we can fetch this
+        fetch(url.split('#')[0])
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.getElementById(id);
+          if (note !== null) {
+            const html = processXRef(id, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
   const findCites = (el) => {
     const parentEl = el.parentElement;
     if (parentEl) {
@@ -707,6 +846,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 });
 </script>
 </div> <!-- /content -->
+
 
 
 
