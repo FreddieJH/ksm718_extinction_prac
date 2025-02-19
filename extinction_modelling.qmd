@@ -3,7 +3,7 @@ title: "Heading to extinction?"
 subtitle: "A simple linear modelling approach to assessing species' population trends"
 author: Freddie Heather 
 description: "KSM718 Extinction Practical"
-date: "2024-03-07"
+date: "2025-02-28"
 toc: true
 toc-depth: 4
 title-block-banner: true
@@ -79,7 +79,7 @@ Try and get as much information about the species as possible. Sources include:
 4.  Reef Life survey
 5.  ChatGPT - ask for a reference/source and **check that source!**
 
-We will split into pairs. Each pair will try to get as much life-history information as possible. Input your data into the Google Doc [here](https://docs.google.com/spreadsheets/d/1xS3Vvh5dRKqeGZlLSjoFXsAyfxCWRKPGD8YZylSfWw0/edit?usp=sharing).
+We will split into pairs. Choose one of the 20 species within the Google Doc and try to get as much life-history information as possible. Input your data into the Google Doc [here](https://docs.google.com/spreadsheets/d/1xS3Vvh5dRKqeGZlLSjoFXsAyfxCWRKPGD8YZylSfWw0/edit?usp=sharing).
 
 ### Step 2. Getting abundance data
 
@@ -367,7 +367,7 @@ dat_one_spp |>
 |                                               |                           |                                 |
 |                                               | *Demonstrator*            |                                 |
 +-----------------------------------------------+---------------------------+---------------------------------+
-| ![](images/image-92218207.png){width="100"}   | **Tyson Bessell**,        | Tyson.Bessell\@utas.edu.au      |
+| ![](images/liv.png){width="100"}              | **Liv Johnson**,          | Olivia.Johnson\@utas.edu.au     |
 |                                               |                           |                                 |
 |                                               | *Demonstrator*            |                                 |
 +-----------------------------------------------+---------------------------+---------------------------------+
