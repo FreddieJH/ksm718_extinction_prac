@@ -68,6 +68,7 @@ Edgar et al (2023) looked at the species trends for 1057 species. In this practi
 1.  Get general life history information about each species, e.g. mean or maximal body size of the species, thermal preference.
 2.  Get fish abundance data from from the Reef Life Survey (RLS)
 3.  Use R to analyse and quantify population trends.
+4.  (If we have time) Relative the life history parameters to the population trends
 
 ### Step 1. Getting life-history data
 
@@ -286,8 +287,6 @@ dat_one_spp_mean |>
 
 What is this species doing? Firstly it seems to be all over the place, but it does seem that in recent years it's lower. Is this significant? Let's see.
 
-For now, we will convert all zero values to NA values.
-
 ```{r}
 
 lm1 <- lm(mean_log_count ~ year, data = dat_one_spp_mean) 
@@ -296,7 +295,7 @@ summary(lm1)
 
 ```
 
-No significant slope, i.e. no increase or decline. However, by taking an average of all of the sites, we are removing a lot of data. We could also use a linear mixed effects model to model this time-series.
+No significant slope, i.e., no increase or decline. However, by taking an average of all of the sites, we are removing a lot of data. We could also use a linear mixed effects model to model this time-series.
 
 ```{r}
 

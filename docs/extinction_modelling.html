@@ -225,6 +225,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>Get general life history information about each species, e.g.&nbsp;mean or maximal body size of the species, thermal preference.</li>
 <li>Get fish abundance data from from the Reef Life Survey (RLS)</li>
 <li>Use R to analyse and quantify population trends.</li>
+<li>(If we have time) Relative the life history parameters to the population trends</li>
 </ol>
 <section id="step-1.-getting-life-history-data" class="level3">
 <h3 class="anchored" data-anchor-id="step-1.-getting-life-history-data">Step 1. Getting life-history data</h3>
@@ -408,7 +409,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <p>What is this species doing? Firstly it seems to be all over the place, but it does seem that in recent years it’s lower. Is this significant? Let’s see.</p>
-<p>For now, we will convert all zero values to NA values.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>lm1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(mean_log_count <span class="sc">~</span> year, <span class="at">data =</span> dat_one_spp_mean) </span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -432,7 +432,7 @@ Multiple R-squared:  0.007916,  Adjusted R-squared:  -0.02883
 F-statistic: 0.2154 on 1 and 27 DF,  p-value: 0.6463</code></pre>
 </div>
 </div>
-<p>No significant slope, i.e.&nbsp;no increase or decline. However, by taking an average of all of the sites, we are removing a lot of data. We could also use a linear mixed effects model to model this time-series.</p>
+<p>No significant slope, i.e., no increase or decline. However, by taking an average of all of the sites, we are removing a lot of data. We could also use a linear mixed effects model to model this time-series.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># This package allows us to get a p-value from the model</span></span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="co"># We can talk more about the appropriateness of getting a p-value from a mixed model</span></span>
