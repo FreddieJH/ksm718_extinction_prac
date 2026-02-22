@@ -5,3 +5,4 @@
 
 /.quarto/
 data/count_data.csv
+**/*.quarto_ipynb

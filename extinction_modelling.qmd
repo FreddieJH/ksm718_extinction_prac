@@ -3,7 +3,7 @@ title: "Heading to extinction?"
 subtitle: "A simple linear modelling approach to assessing species' population trends"
 author: Freddie Heather 
 description: "KSM718 Extinction Practical"
-date: "2025-02-28"
+date: "2026-02-24"
 toc: true
 toc-depth: 4
 title-block-banner: true
@@ -127,7 +127,7 @@ Note: When you open up the project in the future, just click on the .Rproj file,
 You *can* code directly into the console, and it will work, but it won't keep track of all your code. Sometimes I code directly into the console if I just want a quick answer for something, e.g.
 
 ```{r}
-5*(6/9)
+5 * (6 / 9)
 ```
 
 When you write in scripts, you can "send" that code to the console to run, and you can save the script and come back to it later. Not only is that important when working on big R projects, but its important when you come to publishing your code when you publish a paper.
@@ -143,25 +143,25 @@ To begin, write something in the R script, maybe start with a comment (use "\#" 
 ```{r}
 #| include = FALSE
 # set.seed(1)
-# spp_selection <- 
-#   read_csv("data/count_data.csv") |> 
-#   filter(state == "Tasmania") |> 
-#   pull(species_name) |> 
+# spp_selection <-
+#   read_csv("data/count_data.csv") |>
+#   filter(state == "Tasmania") |>
+#   pull(species_name) |>
 #   sample(20)
-# 
-# read_csv("data/count_data.csv") |> 
-#   filter(state == "Tasmania") |> 
-#   filter(species_name %in% spp_selection) |> 
-#   select(site_code, latitude, 
-#          longitude, 
-#          species_name, x1992:x2021) |> 
-#   pivot_longer(cols = x1992:x2021, 
-#                names_to = "year", 
-#                values_to = "count", 
-#                names_prefix = "x") |> 
-#   mutate(year = as.integer(year)) |> 
-#   filter(!is.na(count)) |> 
-#   group_by(site_code, latitude, longitude, species_name, year) |> 
+#
+# read_csv("data/count_data.csv") |>
+#   filter(state == "Tasmania") |>
+#   filter(species_name %in% spp_selection) |>
+#   select(site_code, latitude,
+#          longitude,
+#          species_name, x1992:x2021) |>
+#   pivot_longer(cols = x1992:x2021,
+#                names_to = "year",
+#                values_to = "count",
+#                names_prefix = "x") |>
+#   mutate(year = as.integer(year)) |>
+#   filter(!is.na(count)) |>
+#   group_by(site_code, latitude, longitude, species_name, year) |>
 #   summarise(count = mean(count)) |> view()
 #   write_csv("data/count_data_20spp.csv")
 
@@ -192,8 +192,7 @@ The first thing to normally do with a new script is to load the `tidyverse` pack
 ```{r}
 #| message = FALSE
 
-
-# If you have not installed the tidyverse on your computer before, uncomment the line below and install it. You only need to do that once. You can remove it from your script after you've done that. 
+# If you have not installed the tidyverse on your computer before, uncomment the line below and install it. You only need to do that once. You can remove it from your script after you've done that.
 # install.packages("tidyverse")
 
 # once installed we can load the package
@@ -213,7 +212,7 @@ read_csv("data/count_data_20spp.csv")
 This will read the csv file and show it on the screen (thankfully it won't show us the whole 49K rows), but we want to assign it to an object so that we can use the file and manipulate it, or summarise it, or visualise it.
 
 ```{r}
-raw_dat <- 
+raw_dat <-
   read_csv("data/count_data_20spp.csv")
 ```
 
@@ -226,8 +225,8 @@ First lets get rid of the years where the sites were not surveyed (NA values). W
 ```{r}
 
 # Removing rows that have an NA in the count column
-dat_no_na <- 
-  raw_dat |> 
+dat_no_na <-
+  raw_dat |>
   drop_na(count)
 
 ```
@@ -237,9 +236,9 @@ First thing before we start analyses, **plot the data!** Let's take one species,
 ```{r}
 
 # 980 rows
-dat_one_spp <- 
-  dat_no_na |> 
-  filter(species_name == "Aracana aurita") |> 
+dat_one_spp <-
+  dat_no_na |>
+  filter(species_name == "Aracana aurita") |>
   mutate(log_count = log(count + 1))
 
 ```
@@ -250,15 +249,13 @@ There are lots of rows, as each site has its own time-series. How about we look 
 #| fig-cap: "Population trends for Aracana aurita at six sites (a random subset)."
 #| label: "fig-trend6"
 
-dat_one_spp |> 
+dat_one_spp |>
   filter(str_detect(site_code, "TI-S|TN")) |> # selecting a few sites only
   ggplot() +
-  aes(x = year, 
-      y = log_count) + 
-  geom_path()  +
-  # seperate the data into a window (facet) for each site_code 
-  facet_wrap(~site_code, 
-             scales = "free_y")
+  aes(x = year, y = log_count) +
+  geom_path() +
+  # seperate the data into a window (facet) for each site_code
+  facet_wrap(~site_code, scales = "free_y")
 
 ```
 
@@ -270,16 +267,15 @@ One way to overcome this is to take an average across the sites (@fig-trendmean)
 #| fig-cap: "Mean population trends for Aracana aurita across all sites"
 #| label: "fig-trendmean"
 
-dat_one_spp_mean <- 
-  dat_one_spp |> 
-  group_by(year) |> 
+dat_one_spp_mean <-
+  dat_one_spp |>
+  group_by(year) |>
   summarise(mean_log_count = mean(log_count))
 
 # average across all sites
-dat_one_spp_mean |> 
+dat_one_spp_mean |>
   ggplot() +
-  aes(x = year, 
-      y = mean_log_count) + 
+  aes(x = year, y = mean_log_count) +
   geom_point() +
   geom_path()
 
@@ -289,7 +285,7 @@ What is this species doing? Firstly it seems to be all over the place, but it do
 
 ```{r}
 
-lm1 <- lm(mean_log_count ~ year, data = dat_one_spp_mean) 
+lm1 <- lm(mean_log_count ~ year, data = dat_one_spp_mean)
 
 summary(lm1)
 
@@ -303,7 +299,7 @@ No significant slope, i.e., no increase or decline. However, by taking an averag
 # We can talk more about the appropriateness of getting a p-value from a mixed model
 library(lmerTest)
 
-lmer1 <- lmerTest::lmer(log_count ~ year + (1|site_code), data = dat_one_spp) 
+lmer1 <- lmerTest::lmer(log_count ~ year + (1 | site_code), data = dat_one_spp)
 summary(lmer1)
 
 ```
@@ -319,16 +315,16 @@ intercept_value <- coef(summary(lmer1))[1, 1]
 slope_value <- coef(summary(lmer1))[2, 1]
 
 
-dat_one_spp |> 
-  ggplot(aes(x = year, 
-             y = log_count)) +
-  geom_point(col = "grey") + 
-  geom_line(aes(group = site_code), 
-            col = "grey") +
-  geom_abline(intercept = intercept_value,
-              slope = slope_value, 
-              size = 2, 
-              col = "red") +
+dat_one_spp |>
+  ggplot(aes(x = year, y = log_count)) +
+  geom_point(col = "grey") +
+  geom_line(aes(group = site_code), col = "grey") +
+  geom_abline(
+    intercept = intercept_value,
+    slope = slope_value,
+    size = 2,
+    col = "red"
+  ) +
   theme_classic(20) +
   labs(
     x = "Year",
@@ -363,10 +359,6 @@ dat_one_spp |>
 
 +:---------------------------------------------:+---------------------------+---------------------------------+
 | ![](images/image-1625305563.png){width="100"} | **Freddie Heather**,      | Freddie.Heather\@utas.edu.au    |
-|                                               |                           |                                 |
-|                                               | *Demonstrator*            |                                 |
-+-----------------------------------------------+---------------------------+---------------------------------+
-| ![](images/liv.png){width="100"}              | **Liv Johnson**,          | Olivia.Johnson\@utas.edu.au     |
 |                                               |                           |                                 |
 |                                               | *Demonstrator*            |                                 |
 +-----------------------------------------------+---------------------------+---------------------------------+
