@@ -70,7 +70,7 @@ Edgar et al (2023) looked at the species trends for 1057 species. In this practi
 3.  Use R to analyse and quantify population trends.
 4.  (If we have time) Relative the life history parameters to the population trends
 
-### Step 1. Getting life-history data
+### 1. Getting life-history data
 
 Try and get as much information about the species as possible. Sources include:
 
@@ -82,14 +82,14 @@ Try and get as much information about the species as possible. Sources include:
 
 We will split into pairs. Choose one of the 20 species within the Google Doc and try to get as much life-history information as possible. Input your data into the Google Doc [here](https://docs.google.com/spreadsheets/d/1xS3Vvh5dRKqeGZlLSjoFXsAyfxCWRKPGD8YZylSfWw0/edit?usp=sharing).
 
-### Step 2. Getting abundance data
+### 2. Getting abundance data
 
 - Try and access the survey data from <https://www.reeflifesurvey.com>, which will take you over to the AODN portal (@fig-aodn-screenshot):
 - Download data for your species, and select Tasmania only, have a look at the dataframe (**NOTE:** I will give you a cleaned data file for analysis later)
 
 ![Screen shot of the data extract we want](images/image-225441306.png){#fig-aodn-screenshot}
 
-### Step 3. Analysis in R
+### 3. Analysis in R
 
 -   Download R (<https://cran.r-project.org/>)
 
